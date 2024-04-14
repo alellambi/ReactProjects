@@ -17,8 +17,8 @@
 
 body {
   margin: 0;
-  display: flex;
-  justify-content: center;
+  /* display: flex;
+  justify-content: center; */
   min-width: 320px;
   min-height: 100vh;
 }
@@ -29,7 +29,17 @@ body {
   box-sizing: border-box;
 }
 
+.game {
+  width: 75vw;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
 .board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
   width: fit-content;
   margin: 40px auto;
   text-align: center;
@@ -56,12 +66,6 @@ body {
 .board button:hover {
   background: #eee;
   color: #222;
-}
-
-.board .game {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
 }
 
 .turn {
@@ -125,7 +129,20 @@ body {
   border: 2px solid #eee;
   border-radius: 5px;
   display: grid;
+  gap: 10px;
   place-items: center;
   cursor: pointer;
   font-size: 48px;
+}
+
+.selected {
+  border: rgb(59, 156, 51);
+  border-style: double;
+  border-radius: 10px
+}
+
+.disabled {
+  border: rgb(255, 251, 1);
+  border-style: double;
+  border-radius: 10px
 }
