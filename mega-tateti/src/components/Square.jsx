@@ -1,4 +1,4 @@
-export function Square ({ children, index, subIndex, handlePlay }) {
+export function Square ({ children, index, subIndex, handlePlay, turn }) {
   function handleClick () {
     if (children) {
       return
@@ -8,7 +8,7 @@ export function Square ({ children, index, subIndex, handlePlay }) {
   // console.log(index, subIndex)
 
   return (
-    <div className="square" onClick={handleClick}>
+    <div className={`square ${turn}`} onClick={handleClick}>
         {children}
     </div>
   )

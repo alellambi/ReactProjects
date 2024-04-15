@@ -1,6 +1,6 @@
 import { Square } from './Square'
 
-export function Subtable ({ index, subtable, handlePlay, isFinished, isDisabled }) {
+export function Subtable ({ index, subtable, handlePlay, isFinished, isDisabled, turn }) {
   // console.log(index, isDisabled)
   let dynamicClass = 'subBoard'
   if (isFinished) dynamicClass += ' finished'
@@ -26,6 +26,7 @@ export function Subtable ({ index, subtable, handlePlay, isFinished, isDisabled 
                 index={index} subIndex={subIndex}
                 handlePlay={handlePlay}
                 isDisabled={isDisabled}
+                turn={turn}
               >
                 {subtable[subIndex]}
               </Square>

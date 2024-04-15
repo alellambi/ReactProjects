@@ -1,11 +1,12 @@
 import './App.css'
 // import './index.css'
+import { useState } from 'react'
+
 import { Table } from '#/components/Table.jsx'
 import { Subtable } from '#/components/Subtable.jsx'
 import { TABLE, TURNS, SUBTABLE_PLAYS } from '#/consts.js'
+import { isWinner, getBooleanIndexes, getCSSTurn } from '#/helpers/tableControl.js'
 
-import { useState } from 'react'
-import { isWinner } from '#/helpers/winner.js'
 
 function App () {
   const [turn, setTurn] = useState(TURNS.x)
@@ -14,39 +15,43 @@ function App () {
   const [disabledSubtables, setDisabledSubtables] = useState(SUBTABLE_PLAYS)
   const [winner, setWinner] = useState(null)
 
-  // console.log('Habilitado', getBooleanIndexes(disabledSubtables, false))
-  // console.log('Terminados', getBooleanIndexes(subtableStatus, true))
-
   function checkPartialWinner (newTable) {
+    const newSubtableStatus = [...subtableStatus]
     newTable.forEach((subtable, index) => {
-      let finishedBoard = isWinner(subtable)
+      const finishedBoard = isWinner(subtable)
       if (finishedBoard) {
-        console.log(finishedBoard)
-        const newSubtableStatus = [...subtableStatus]
+        // console.log(finishedBoard)
         newSubtableStatus[index] = finishedBoard
         setSubtableStatus(newSubtableStatus)
         checkWinner(newSubtableStatus)
-        finishedBoard = false
       }
     })
+    return newSubtableStatus
   }
 
-  function getBooleanIndexes (array, bool) {
-    const indexes = []
-    array.forEach((element, index) => {
-      if (element === bool || element === TURNS.x || element === TURNS.o) {
-        indexes.push(index)
+  function cleanDisabled () {
+    const newDisabled = [...disabledSubtables].fill(false)
+    subtableStatus.forEach((element, index) => {
+      if (element) {
+        console.log(index)
+        newDisabled[index] = true
       }
     })
-    return indexes
+    setDisabledSubtables(newDisabled)
+  }
+
+  function disableSubtables (subIndex) {
+    const newDisabled = [...disabledSubtables]
+    newDisabled.fill(true)
+    newDisabled[subIndex] = false
+    return newDisabled
   }
 
   function handlePlay (index, subIndex) {
-    if (disabledSubtables[index] || subtableStatus[index]) {
-      return
-    }
+    // Impedir jugar en subtablas completas o inhabilitadas
+    if (disabledSubtables[index] || (subtableStatus[index])) return
 
-    // Imprimir jugada
+    // Registrar jugada
     const newTable = JSON.parse(JSON.stringify(table))
     newTable[index][subIndex] = turn
 
@@ -55,35 +60,23 @@ function App () {
     setTurn(newTurn)
     setTable(newTable)
 
-    // Controlar si la subtabla finalizó
-    checkPartialWinner(newTable)
-    console.log(subtableStatus)
-    // Deshabilitar tableros no correspondientes
-    const newDisabled = [...disabledSubtables]
-    newDisabled.fill(true)
-    newDisabled[subIndex] = false
+    // Controlar si la subtabla finalizó y si alguien ganó
+    const finishedSubtables = checkPartialWinner(newTable)
 
+    // Deshabilitar tableros no correspondientes
+    const newDisabled = disableSubtables(subIndex)
     setDisabledSubtables(newDisabled)
 
-    if (getBooleanIndexes(subtableStatus, true)[0] === subIndex) {
-      setDisabledSubtables(disabledSubtables.fill(false))
+    if (getBooleanIndexes(finishedSubtables, true).includes(subIndex)) {
+      cleanDisabled()
     }
-
-    // console.log('Habilitado', getBooleanIndexes(disabledSubtables, false))
-    // console.log('Terminados', getBooleanIndexes(subtableStatus, true))
+    // console.log({ 'Posicion Jugada': `${index}, ${subIndex}`, 'Indices Terminados': getBooleanIndexes(finishedSubtables, true), 'Indices Inhabilitados': getBooleanIndexes(newDisabled, true) })
   }
-
-  // function getFinished () {
-  //   return getBooleanIndexes(subtableStatus, true)
-  // }
-
-  // function getEnabled () {
-  //   return getBooleanIndexes(disabledSubtables, false)
-  // }
 
   function restartGame () {
     setTurn(TURNS.x)
     setTable(TABLE)
+    setDisabledSubtables(SUBTABLE_PLAYS)
     setSubtableStatus(SUBTABLE_PLAYS)
   }
 
@@ -94,6 +87,8 @@ function App () {
       setWinner(win)
     }
   }
+
+  const CSSTurn = getCSSTurn(turn)
 
   return (
     <>
@@ -107,11 +102,12 @@ function App () {
           {table.map((_, index) => {
             return (
               <Subtable key ={'t' + index}
-              subtable = {table[index]}
-              index = {index}
-              handlePlay = {handlePlay}
-              isFinished = {subtableStatus[index]}
-              isDisabled = {disabledSubtables[index]}
+                subtable = {table[index]}
+                index = {index}
+                handlePlay = {handlePlay}
+                isFinished = {subtableStatus[index]}
+                isDisabled = {disabledSubtables[index]}
+                turn = {CSSTurn}
               />
             )
           }

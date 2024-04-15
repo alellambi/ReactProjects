@@ -5,7 +5,7 @@ export const TURNS = {
 }
 
 export const SUBTABLE = Array(9)
-export const TABLE = Array(9).fill(SUBTABLE.fill(''))
+export const TABLE = Array(9).fill(SUBTABLE.fill(null))
 
 export const WINNING_PLAYS = [
   [0, 1, 2],
