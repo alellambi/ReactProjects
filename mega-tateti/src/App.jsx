@@ -7,7 +7,6 @@ import { Subtable } from '#/components/Subtable.jsx'
 import { TABLE, TURNS, SUBTABLE_PLAYS } from '#/consts.js'
 import { isWinner, getBooleanIndexes, getCSSTurn } from '#/helpers/tableControl.js'
 
-
 function App () {
   const [turn, setTurn] = useState(TURNS.x)
   const [table, setTable] = useState(TABLE)
@@ -33,11 +32,10 @@ function App () {
     const newDisabled = [...disabledSubtables].fill(false)
     subtableStatus.forEach((element, index) => {
       if (element) {
-        console.log(index)
         newDisabled[index] = true
       }
     })
-    setDisabledSubtables(newDisabled)
+    return newDisabled
   }
 
   function disableSubtables (subIndex) {
@@ -63,13 +61,16 @@ function App () {
     // Controlar si la subtabla finalizó y si alguien ganó
     const finishedSubtables = checkPartialWinner(newTable)
 
+    // Limpiar Inhabilitados si se va a sutabla terminada
+    if (getBooleanIndexes(finishedSubtables, true).includes(subIndex)) {
+      setDisabledSubtables(cleanDisabled())
+      return
+    }
+
     // Deshabilitar tableros no correspondientes
     const newDisabled = disableSubtables(subIndex)
     setDisabledSubtables(newDisabled)
 
-    if (getBooleanIndexes(finishedSubtables, true).includes(subIndex)) {
-      cleanDisabled()
-    }
     // console.log({ 'Posicion Jugada': `${index}, ${subIndex}`, 'Indices Terminados': getBooleanIndexes(finishedSubtables, true), 'Indices Inhabilitados': getBooleanIndexes(newDisabled, true) })
   }
 
@@ -78,6 +79,7 @@ function App () {
     setTable(TABLE)
     setDisabledSubtables(SUBTABLE_PLAYS)
     setSubtableStatus(SUBTABLE_PLAYS)
+    setWinner(null)
   }
 
   function checkWinner (subtableStatus) {
