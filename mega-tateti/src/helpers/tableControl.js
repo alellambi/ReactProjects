@@ -11,10 +11,16 @@ export function isWinner (board) {
   return false
 }
 
+export function isDraw (board) {
+  const draw = board.some((e) => e === null)
+  console.log(!draw)
+  return !draw
+}
+
 export function getBooleanIndexes (array, bool) {
   const indexes = []
   array.forEach((element, index) => {
-    if (element === bool || element === TURNS.x || element === TURNS.o) {
+    if (element === bool || element === TURNS.x || element === TURNS.o || element === 'Draw') {
       indexes.push(index)
     }
   })

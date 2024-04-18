@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { Table } from '#/components/Table.jsx'
 import { Subtable } from '#/components/Subtable.jsx'
 import { TABLE, TURNS, SUBTABLE_PLAYS } from '#/consts.js'
-import { isWinner, getBooleanIndexes, getCSSTurn } from '#/helpers/tableControl.js'
+import { isWinner, isDraw, getBooleanIndexes, getCSSTurn } from '#/helpers/tableControl.js'
 
 function App () {
   const [turn, setTurn] = useState(TURNS.x)
@@ -60,6 +60,11 @@ function App () {
 
     // Controlar si la subtabla finalizó y si alguien ganó
     const finishedSubtables = checkPartialWinner(newTable)
+
+    if (isDraw(newTable[index])) {
+      finishedSubtables[index] = 'Draw'
+      console.log(finishedSubtables)
+    }
 
     // Limpiar Inhabilitados si se va a sutabla terminada
     if (getBooleanIndexes(finishedSubtables, true).includes(subIndex)) {
