@@ -1,0 +1,52 @@
+{
+    "Bitcoin": {
+        "id":"bitcoin",
+        "symbol": "BTC",
+        "price": 0
+    },
+    "Cardano": {
+        "id":"cardano",
+        "symbol": "ADA",
+        "price": 0
+    },
+    "Chainlink": {
+        "id":"chainlink",
+        "symbol": "LINK",
+        "price": 0
+    },
+    "Ethereum": {
+        "id":"ethereum",
+        "symbol": "ETH",
+        "price": 0
+    },
+    "Litecoin": {
+        "id":"litecoin",
+        "symbol": "LTC",
+        "price": 0
+    },
+    "Polkadot": {
+        "id":"polkadot",
+        "symbol": "DOT",
+        "price": 0
+    },
+    "Solana": {
+        "id":"solana",
+        "symbol": "SOL",
+        "price": 0
+    },
+    "XRP": {
+        "id":"ripple",
+        "symbol": "XRP",
+        "price": 0
+    },
+    "BNB": {
+        "id":"binancecoin",
+        "symbol": "BNB",
+        "price": 0
+    }, 
+    "Nexo": {
+        "id":"nexo",
+        "symbol": "NEXO",
+        "price": 0
+    } 
+}

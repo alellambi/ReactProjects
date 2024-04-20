@@ -1,0 +1,112 @@
+[
+    {
+        "uuid": "a1b2c3d4-e5f6-7g8h-9i0j-klmnopqrstuv",
+        "date": "2024-02-15",
+        "ammount": 250000,
+        "usd": 250,
+        "final_ammount": 200,
+        "coin": "Bitcoin",
+        "coin_ammount": 0.12345,
+        "int_rate": 10
+      },
+    {
+        "uuid": "a1b2c3d4-e8f6-7g8h-9i0j-klmnopqrstuv",
+        "date": "2024-02-15",
+        "ammount": 150000,
+        "usd": 150,
+        "final_ammount": 100,
+        "coin": "Bitcoin",
+        "coin_ammount": 0.0345,
+        "int_rate": 10
+      },
+      {
+        "uuid": "b2c3d4e5-f6g7-h8i9-j0k1-lmnopqrstuvw",
+        "date": "2024-03-10",
+        "ammount": 600000,
+        "usd": 600,
+        "final_ammount": 480,
+        "coin": "Ethereum",
+        "coin_ammount": 0.6789,
+        "int_rate": 15
+      },
+      {
+        "uuid": "c3d4e5f6-g7h8-i9j0-k1l2-mnopqrstuvwx",
+        "date": "2024-04-05",
+        "ammount": 100000,
+        "usd": 100,
+        "final_ammount": 80,
+        "coin": "Solana",
+        "coin_ammount": 0.54321,
+        "int_rate": 5
+      },
+      {
+        "uuid": "d4e5f6g7-h8i9-j0k1-l2m3-nopqrstuvwxy",
+        "date": "2024-01-20",
+        "ammount": 750000,
+        "usd": 750,
+        "final_ammount": 600,
+        "coin": "Cardano",
+        "coin_ammount": 1.23456,
+        "int_rate": 12
+      },
+      {
+        "uuid": "e5f6g7h8-i9j0-k1l2-m3n4-opqrstuvwxyz",
+        "date": "2024-04-18",
+        "ammount": 50000,
+        "usd": 50,
+        "final_ammount": 40,
+        "coin": "Polkadot",
+        "coin_ammount": 0.98765,
+        "int_rate": 8
+      },
+      {
+        "uuid": "f6g7h8i9-j0k1-l2m3-n4o5-pqrstuvwxyza",
+        "date": "2024-03-01",
+        "ammount": 300000,
+        "usd": 300,
+        "final_ammount": 240,
+        "coin": "Chainlink",
+        "coin_ammount": 0.34567,
+        "int_rate": 18
+      },
+      {
+        "uuid": "g7h8i9j0-k1l2-m3n4-o5p6-qrstuvwxyza1",
+        "date": "2024-02-10",
+        "ammount": 700000,
+        "usd": 700,
+        "final_ammount": 560,
+        "coin": "BNB",
+        "coin_ammount": 1.87654,
+        "int_rate": 10
+      },
+      {
+        "uuid": "h8i9j0k1-l2m3-n4o5-p6q7-rstuvwxyza12",
+        "date": "2024-04-12",
+        "ammount": 150000,
+        "usd": 150,
+        "final_ammount": 120,
+        "coin": "XRP",
+        "coin_ammount": 0.98765,
+        "int_rate": 6
+      },
+      {
+        "uuid": "i9j0k1l2-m3n4-o5p6-q7r8-stuvwxyza123",
+        "date": "2024-01-05",
+        "ammount": 400000,
+        "usd": 400,
+        "final_ammount": 320,
+        "coin": "Litecoin",
+        "coin_ammount": 0.56789,
+        "int_rate": 14
+      },
+      {
+        "uuid": "i9j0k1l2-m354-o5p6-q7r8-stuvwxyza123",
+        "date": "2024-01-05",
+        "ammount": 250000,
+        "usd": 250,
+        "final_ammount": 200,
+        "coin": "Nexo",
+        "coin_ammount": 200,
+        "int_rate": 14
+      }
+]

@@ -1,0 +1,23 @@
+{
+    "bitcoin": {
+    "usd": 63932
+  },
+  "cardano": {
+    "usd": 0.476403
+  },
+  "chainlink": {
+    "usd": 14.02
+  },
+  "ethereum": {
+    "usd": 3051.68
+  },
+  "litecoin": {
+    "usd": 81.59
+  },
+  "polkadot": {
+    "usd": 6.71
+  },
+  "solana": {
+    "usd": 142.35
+  }
+}
