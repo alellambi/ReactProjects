@@ -1,13 +1,14 @@
 // import tokenIds from '#/tokenIds.json'
 // import mockResults from '#/mock_results.json'
 import { useEffect, useState } from 'react'
-import cachedTokens from '#/cachedTokens.json'
+import cachedTokens from '#/data/cachedTokens.json'
 
 async function getTokenIds (coins) {
   // const symbols = await tokenIds.filter(token => coins.includes(token.name))
 
   const ids = []
   coins.forEach(token => {
+    // console.log(token)
     ids.push(cachedTokens[token].id)
   })
   return ids
@@ -28,11 +29,13 @@ async function getValues (coins) {
   return await fetch(`https://coingecko.p.rapidapi.com/simple/price?ids=${coins}&vs_currencies=usd`, options)
     .then(res => res.json())
     .then(json => {
+      // console.log(json)
       return json
     })
 }
 
-export function useGetValues (coins) {
+
+export function UseGetValues (coins) {
   const [values, setValues] = useState([])
 
   useEffect(() => {
@@ -54,7 +57,7 @@ export function useGetValues (coins) {
             setValues(responseTokens)
           })
       })
-  }, [])
+  }, [coins])
 
   return values
 }

@@ -1,31 +1,34 @@
-export function InvestmentRow ({ updatedInvestment, ignoredColumns, tableStyler, orderedCoinsData }) {
-  console.log(updatedInvestment)
+export function InvestmentRow({ investment, ignoredColumns, investmentsTableStyler, orderedCoinsData }) {
+  // console.log(investment)
   return (
-            <tr>
-            {
-              Object.keys(updatedInvestment).map((column, index) => {
-                if (ignoredColumns.includes(column)) return null
-                if (column === 'ammount') {
-                  updatedInvestment[column] = updatedInvestment[column].toLocaleString('es')
-                }
-                let dynamicClass = tableStyler[column].class
+    <tr>
+      {
+        !investment
+          ? <td>NADA</td>
+          : (
+            Object.keys(investment).map((column, index) => {
+              if (ignoredColumns.includes(column)) return null
+              if (column === 'ammount') {
+                investment[column] = investment[column].toLocaleString('es')
+              }
+              let dynamicClass = investmentsTableStyler[column].class
 
-                if (column === 'coin_value') {
-                  try {
-                    if (updatedInvestment[column] > orderedCoinsData[updatedInvestment.coin].price) {
-                      dynamicClass = dynamicClass.replace('profitCell', '')
-                    }
-                  } catch {
-                    console.log('Error')
+              if (column === 'coin_value') {
+                try {
+                  if (investment[column] > orderedCoinsData[investment.coin].price) {
+                    dynamicClass = dynamicClass.replace('profitCell', '')
                   }
+                } catch {
+                  console.log('Error')
                 }
-                return (
-                  <td key={index} className={dynamicClass}>
-                  {updatedInvestment[column]}
+              }
+              return (
+                <td key={index} className={dynamicClass}>
+                  {investment[column]}
                 </td>
-                )
-              })
-          }
-          </tr>
+              )
+            }))
+      }
+    </tr>
   )
 }

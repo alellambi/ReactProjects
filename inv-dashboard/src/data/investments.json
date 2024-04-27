@@ -11,6 +11,17 @@
       "int_rate": 10
     },
     {
+      "uuid": "a1b2c3d7-e5f6-7g8h-9i0j-klmnopqrstuv",
+      "date": 1705719600000,
+      "ammount": 250000,
+      "usd": 250,
+      "final_ammount": 200,
+      "coin": "Tether",
+      "coin_ammount": 0.12345,
+      "coin_value": 0,
+      "int_rate": 10
+    },
+    {
       "uuid": "a1b2c3d4-e8f6-7g8h-9i0j-klmnopqrstuv",
       "date": 1705719600000,
       "ammount": 150000,

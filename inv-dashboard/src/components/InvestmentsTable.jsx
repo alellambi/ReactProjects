@@ -1,48 +1,65 @@
 import { InvestmentRow } from '#/components/InvestmentRow'
+import { orderBy } from '#/handlers/tableHandlers.js'
+
 import { useEffect, useState } from 'react'
 
-export function InvestmentsTable ({ investments, ignoredColumns, coinsData }) {
-  console.log(investments)
+export function InvestmentsTable({ investments, ignoredColumns, investmentsTableStyler, coinsData }) {
+  const [orderedInvestments, setOrderedInvestments] = useState(investments)
   const [orderedCoinsData, setOrderedCoinsData] = useState(null)
-  const tableStyler =
-  {
-    date: { name: 'Fecha', class: 'dateCell' },
-    ammount: { name: 'Pesos Invertidos', class: 'pesosCell' },
-    usd: { name: 'Dolares Al Día', class: 'dollarCell' },
-    final_ammount: { name: 'Dolares Totales', class: 'dollarCell' },
-    coin: { name: 'Token', class: '' },
-    coin_ammount: { name: 'Cant. Tokens', class: '' },
-    int_rate: { name: 'Intereses Anuales', class: 'percentageCell' },
-    coin_value: { name: 'Valor de Token', class: 'profitCell deficitCell' },
-    token_earn: { name: 'Tokens Generados', class: '' },
-    total_tokens: { name: 'Tokens Totales', class: '' },
-    int_earn: { name: 'USD Generados', class: 'dollarCell' }
+  // console.log(investments)
+  
+  function handleClick (e) {
+    const newData = orderBy(e, orderedInvestments)
+    setOrderedInvestments(newData)
   }
+  // function orderBy(e){
+  //   const query = e.target.id
+  //   console.log(query)
+  //   console.log(investments[0][`${query}`])
+  //   function compareBy(first, second) {
+  //     return second[`${query}`] - first[`${query}`]
+  //   }
 
-  function orderCoinsData (coinsData) {
+  //   const investmentsCopy = structuredClone(investments)
+  //   setOrderedInvestments(investmentsCopy.sort(compareBy))
+  //   // console.log(investmentsCopy)
+  // }
+
+  function orderCoinsData(coinsData) {
+    const updateCoinData = {}
     for (const coin of coinsData) {
-      orderedCoinsData[coin.name] = coin
+      // orderedCoinsData[coin.name] = coin
+      updateCoinData[coin.name] = coin
     }
-    return orderedCoinsData
+    return updateCoinData
+    // return orderedCoinsData
   }
 
   useEffect(() => {
-    setOrderedCoinsData(orderCoinsData(coinsData))
-    console.log(orderedCoinsData)
+    if (coinsData.length > 0) {
+      setOrderedCoinsData(orderCoinsData(coinsData))
+      // console.log({orderedCoinsData})
+    }
   }, [coinsData])
 
-  function updateInvestment (investment) {
-    const finalInvestment = JSON.parse(JSON.stringify(investment))
+  function calcCompoundInterest(capital, rate, elapsedDays) {
+    const compoundInterest = (capital * Math.pow((1 + rate / 365), elapsedDays) - capital)
+    return compoundInterest
+  }
+
+  function updateInvestment(investment) {
+    // const finalInvestment = JSON.parse(JSON.stringify(investment))
+    const finalInvestment = structuredClone(investment)
     const today = new Date()
     const investmentDate = new Date(investment.date)
     finalInvestment.date = investmentDate.toLocaleDateString()
     const elapsedDays = new Date(today - investmentDate).getDate()
-    if (orderedCoinsData[investment]) {
-      console.log({ orderedCoinsData })
-      finalInvestment.token_earn = investment.coin_ammount * (1 + ((investment.int_rate / 365) ^ (elapsedDays)) - investment.coin_ammount)
-      finalInvestment.total_tokens = investment.coin_ammount + investment.token_earn
-      finalInvestment.int_earn = investment.token_earn * orderedCoinsData[investment.name].price
-    }
+
+    finalInvestment.token_earn = parseFloat(calcCompoundInterest(investment.coin_ammount, investment.int_rate, elapsedDays).toFixed(5))
+    finalInvestment.total_tokens = parseFloat((finalInvestment.token_earn + investment.coin_ammount)).toFixed(5)
+
+    finalInvestment.int_earn = parseFloat((finalInvestment.token_earn * orderedCoinsData[investment.coin].price).toFixed(5))
+
 
     return finalInvestment
   }
@@ -53,11 +70,11 @@ export function InvestmentsTable ({ investments, ignoredColumns, coinsData }) {
         <thead>
           <tr>
             {
-              Object.keys(tableStyler).map((investmentHeader) => {
+              Object.keys(investmentsTableStyler)?.map((investmentHeader) => {
                 if (ignoredColumns.includes(investmentHeader)) return null
                 return (
-                  <th key={investmentHeader}>
-                    {tableStyler[investmentHeader].name}
+                  <th key={investmentHeader} id={investmentHeader} onClick={handleClick}>
+                    {investmentsTableStyler[investmentHeader].name}
                   </th>
                 )
               })
@@ -65,19 +82,20 @@ export function InvestmentsTable ({ investments, ignoredColumns, coinsData }) {
           </tr>
         </thead>
         <tbody>
-        {
-            orderedCoinsData
+          {
+            !orderedCoinsData
               ? <tr><td>nada</td></tr>
               : (
-                  investments.map((investment) => {
-                    return <InvestmentRow key={investment.uuid}
-                      investment={updateInvestment(investment)}
-                      ignoredColumns={ignoredColumns}
-                      tableStyler={tableStyler}
-                      orderCoinsData={orderedCoinsData}
-                      />
-                  })
-                )
+                orderedInvestments.map((investment) => {
+                  const updatedInvestment = updateInvestment(investment)
+                  return <InvestmentRow key={investment.uuid}
+                    investment={updatedInvestment}
+                    ignoredColumns={ignoredColumns}
+                    investmentsTableStyler={investmentsTableStyler}
+                    orderedCoinsData={orderedCoinsData}
+                  />
+                })
+              )
           }
         </tbody>
       </table>

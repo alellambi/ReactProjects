@@ -48,5 +48,10 @@
         "id":"nexo",
         "symbol": "NEXO",
         "price": 0
+    }, 
+    "Tether": {
+        "id": "tether",
+        "symbol": "USDT",
+        "price": 0
     } 
 }

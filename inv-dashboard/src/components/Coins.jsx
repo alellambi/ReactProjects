@@ -1,42 +1,46 @@
-export function Coins ({ coins, coinsData, ammountPerToken }) {
+import { orderBy } from "#/handlers/tableHandlers.js"
+import { useEffect, useState } from "react"
+import { CoinRow } from "./CoinRow"
+
+export function Coins ({ coins, coinsTableStyler, coinsData, ammountPerToken }) {
+  const [orderedCoinsData, setOrderedCoinsData] = useState(coinsData)
+  
+  useEffect(() => {
+    setOrderedCoinsData(coinsData)
+  }, [coinsData])
+
+  function handleClick (e) {
+    
+    const newData = orderBy(e, orderedCoinsData)
+    setOrderedCoinsData(newData)
+  }
+
   return (
     <table>
       <thead>
         <tr>
-          <th>
-            Token
-          </th>
-          <th>
-            Value
-          </th>
-          <th>
-            Total Tokens
-          </th>
-          <th>
-            Total Value
-          </th>
+        {
+              Object.keys(coinsTableStyler)?.map((investmentHeader) => {
+                return (
+                  <th key={investmentHeader} id={investmentHeader} onClick={handleClick}>
+                    {coinsTableStyler[investmentHeader].name}
+                  </th>
+                )
+              })
+            }
         </tr>
       </thead>
       <tbody>
         {
-          coinsData.length > 0
+          orderedCoinsData.length > 0
             ? (
-                coinsData.map((coin) => {
+              orderedCoinsData.map((coin) => {
                   return (
-              <tr key={coin.id}>
-                <td>
-                  {coin.symbol}
-                </td>
-                <td className='dollarCell'>
-                  {coin.price.toLocaleString('es', { useGrouping: true })}
-                </td>
-                <td>
-                  {ammountPerToken[coin.name]}
-                </td>
-                <td className='dollarCell'>
-                  {(coin.price * ammountPerToken[coin.name]).toFixed(2)}
-                </td>
-              </tr>
+                    <CoinRow key={coin.id}
+                      coin={coin}
+                      coinsTableStyler={coinsTableStyler}
+                      ammountPerToken={ammountPerToken}
+                    />
                   )
                 }))
             : (<tr><td>NADA</td></tr>)
