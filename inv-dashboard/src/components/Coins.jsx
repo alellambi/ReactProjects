@@ -1,8 +1,4 @@
-import { useGetValues } from '#/hooks/prices.jsx'
-
-export function Coins ({ coins, ammountPerToken }) {
-  const coinsData = useGetValues(coins)
-
+export function Coins ({ coins, coinsData, ammountPerToken }) {
   return (
     <table>
       <thead>
@@ -25,7 +21,7 @@ export function Coins ({ coins, ammountPerToken }) {
         {
           coinsData.length > 0
             ? (
-                coinsData.map((coin, index) => {
+                coinsData.map((coin) => {
                   return (
               <tr key={coin.id}>
                 <td>
