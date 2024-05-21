@@ -5,14 +5,21 @@ import { useState } from 'react'
 import { Table } from '#/components/Table.jsx'
 import { Subtable } from '#/components/Subtable.jsx'
 import { TABLE, TURNS, SUBTABLE_PLAYS } from '#/consts.js'
-import { isWinner, isDraw, getBooleanIndexes, getCSSTurn } from '#/helpers/tableControl.js'
+import { isWinner, isDraw, getBooleanIndexes} from '#/helpers/tableControl.js'
+import { IconSelector } from '#components/IconSelector.jsx'
+
 
 function App () {
+  const [selector, setSelector] = useState(false)
   const [turn, setTurn] = useState(TURNS.x)
   const [table, setTable] = useState(TABLE)
   const [subtableStatus, setSubtableStatus] = useState(SUBTABLE_PLAYS)
   const [disabledSubtables, setDisabledSubtables] = useState(SUBTABLE_PLAYS)
   const [winner, setWinner] = useState(null)
+
+  function selectIcons() {
+    setSelector(true)
+  }
 
   function checkPartialWinner (newTable) {
     const newSubtableStatus = [...subtableStatus]
@@ -63,7 +70,7 @@ function App () {
 
     if (isDraw(newTable[index])) {
       finishedSubtables[index] = 'Draw'
-      console.log(finishedSubtables)
+      // console.log(finishedSubtables)
     }
 
     // Limpiar Inhabilitados si se va a sutabla terminada
@@ -95,13 +102,18 @@ function App () {
     }
   }
 
-  const CSSTurn = getCSSTurn(turn)
+  // const CSSTurn = getCSSTurn(turn)
 
   return (
     <>
       {
         winner
           ? (<div>{winner}</div>)
+          : null
+      }
+      {
+        selector
+          ? <IconSelector turns={TURNS} setSelector={setSelector} restartGame={restartGame}></IconSelector>
           : null
       }
       <article className='game'>
@@ -114,13 +126,14 @@ function App () {
                 handlePlay = {handlePlay}
                 isFinished = {subtableStatus[index]}
                 isDisabled = {disabledSubtables[index]}
-                turn = {CSSTurn}
+                turn = {turn}
               />
             )
           }
           )}
         </ Table>
       </article>
+      <button onClick={selectIcons}>SELECT ICONS</button>
       <button onClick={restartGame}>
         RESTART GAME
       </button>

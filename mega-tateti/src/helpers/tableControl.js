@@ -4,7 +4,7 @@ export function isWinner (board) {
   for (const play of WINNING_PLAYS) {
     const [a, b, c] = play
     if (board[a] && board[a] === board[b] && board[a] === board[c]) {
-      console.log(`Ganado por ${board[a]}`)
+      // console.log(`Ganado por ${board[a]}`)
       return board[a]
     }
   }
@@ -13,7 +13,7 @@ export function isWinner (board) {
 
 export function isDraw (board) {
   const draw = board.some((e) => e === null)
-  console.log(!draw)
+  // console.log(!draw)
   return !draw
 }
 
@@ -28,6 +28,6 @@ export function getBooleanIndexes (array, bool) {
 }
 
 export function getCSSTurn (turn) {
-  if (turn === '✖️') return 'XTurn'
+  if (turn === TURNS.x) return 'XTurn'
   return 'OTurn'
 }

@@ -3,7 +3,7 @@ import { Square } from './Square'
 export function Subtable ({ index, subtable, handlePlay, isFinished, isDisabled, turn }) {
   // console.log(index, isDisabled)
   let dynamicClass = 'subBoard'
-  console.log('Is Finished en ', index, 'es', isFinished)
+  // console.log('Is Finished en ', index, 'es', isFinished)
   if (isFinished) dynamicClass += ' finished'
   if (isDisabled) dynamicClass += ' disabled'
   else dynamicClass += ' selected'
