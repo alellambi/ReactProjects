@@ -26,12 +26,13 @@ export function InvestmentsSection ({ config }) {
       <Coins
         coins={coins}
         coinsData={coinsData}
+        ignoredColumns={config.coinsIgnoredColumns}
         coinsTableStyler={config.coinsTableStyler}
         ammountPerToken={totalizeTokens()} />
 
       <InvestmentsTable
         investments={investments}
-        ignoredColumns={config.ignoredColumns}
+        ignoredColumns={config.investmentsIgnoredColumns}
         investmentsTableStyler={config.investmentsTableStyler}
         coinsData={coinsData}/>
     </>

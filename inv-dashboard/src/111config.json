@@ -1,0 +1,75 @@
+{
+	"investmentsIgnoredColumns": [
+		"uuid", "date"
+	],
+	
+	"investmentsTableStyler": {
+		"date": {
+			"name": "Fecha",
+			"class": "dateCell"
+		},
+		"ammount": {
+			"name": "Pesos Invertidos",
+			"class": "pesosCell"
+		},
+		"usd": {
+			"name": "Dolares Al Día",
+			"class": "dollarCell"
+		},
+		"final_ammount": {
+			"name": "Dolares Totales",
+			"class": "dollarCell"
+		},
+		"coin": {
+			"name": "Token",
+			"class": ""
+		},
+		"coin_ammount": {
+			"name": "Cant. Tokens",
+			"class": ""
+		},
+		"coin_value": {
+			"name": "Valor de Token",
+			"class": "profitCell deficitCell"
+		},
+        "int_rate": {
+			"name": "Intereses Anuales",
+            "class": "percentageCell"
+        },
+		"token_earn": {
+			"name": "Tokens Generados",
+			"class": ""
+		},
+		"total_tokens": {
+			"name": "Tokens Totales",
+			"class": ""
+		},
+		"int_earn": {
+			"name": "USD Generados",
+			"class": "dollarCell"
+		}
+	},
+
+	"coinsIgnoredColumns": [
+		"uuid"
+	],
+	
+	"coinsTableStyler": {
+		"symbol": {
+			"name": "Token",
+			"class": ""
+		},
+		"price": {
+			"name": "Valor",
+			"class": "dollarCell"
+		},
+		"total_tokens": {
+			"name": "Cant. Tokens",
+			"class": ""
+		},
+		"total_value": {
+			"name": "Valor Total",
+			"class": "dollarCell"
+		}
+	}
+}

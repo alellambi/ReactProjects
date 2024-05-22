@@ -4,7 +4,6 @@ import { CoinRow } from "./CoinRow"
 
 export function Coins ({ coins, coinsTableStyler, coinsData, ammountPerToken }) {
   const [orderedCoinsData, setOrderedCoinsData] = useState(coinsData)
-  
   useEffect(() => {
     setOrderedCoinsData(coinsData)
   }, [coinsData])

@@ -16,3 +16,7 @@ export function orderBy(e, tableData){
     : tableDataCopy.sort(compareBy)
 
 }
+
+export function isFiltered(column, filters) {
+  return filters.includes(column)
+}

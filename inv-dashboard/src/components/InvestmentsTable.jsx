@@ -1,29 +1,23 @@
 import { InvestmentRow } from '#/components/InvestmentRow'
-import { orderBy } from '#/handlers/tableHandlers.js'
-
+import { orderBy, isFiltered } from '#/handlers/tableHandlers.js'
+import { ColumnFilter } from '#/components/ColumnFilter'
 import { useEffect, useState } from 'react'
 
 export function InvestmentsTable({ investments, ignoredColumns, investmentsTableStyler, coinsData }) {
   const [orderedInvestments, setOrderedInvestments] = useState(investments)
   const [orderedCoinsData, setOrderedCoinsData] = useState(null)
+  const [columnFilterModal, setColumnFilterModal] = useState(false)
   // console.log(investments)
   
   function handleClick (e) {
     const newData = orderBy(e, orderedInvestments)
     setOrderedInvestments(newData)
   }
-  // function orderBy(e){
-  //   const query = e.target.id
-  //   console.log(query)
-  //   console.log(investments[0][`${query}`])
-  //   function compareBy(first, second) {
-  //     return second[`${query}`] - first[`${query}`]
-  //   }
 
-  //   const investmentsCopy = structuredClone(investments)
-  //   setOrderedInvestments(investmentsCopy.sort(compareBy))
-  //   // console.log(investmentsCopy)
-  // }
+  
+  function columnModal() {
+    setColumnFilterModal(true)
+  }
 
   function orderCoinsData(coinsData) {
     const updateCoinData = {}
@@ -66,12 +60,23 @@ export function InvestmentsTable({ investments, ignoredColumns, investmentsTable
 
   return (
     <>
+      <button onClick={columnModal}>Seleccionar Columnas</button>
+      {
+        columnFilterModal 
+          ? <ColumnFilter 
+            columns = {investmentsTableStyler} 
+            filters = {ignoredColumns}
+            section = {"Investment"}
+            setColumnFilterModal = {setColumnFilterModal}
+          /> 
+          : null
+      }
       <table>
         <thead>
           <tr>
             {
               Object.keys(investmentsTableStyler)?.map((investmentHeader) => {
-                if (ignoredColumns.includes(investmentHeader)) return null
+                if (isFiltered(investmentHeader, ignoredColumns)) return null
                 return (
                   <th key={investmentHeader} id={investmentHeader} onClick={handleClick}>
                     {investmentsTableStyler[investmentHeader].name}

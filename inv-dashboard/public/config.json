@@ -1,7 +1,8 @@
 {
-	"ignoredColumns": [
-		"uuid"
+	"investmentsIgnoredColumns": [
+		"uuid", "date"
 	],
+	
 	"investmentsTableStyler": {
 		"date": {
 			"name": "Fecha",
@@ -28,11 +29,11 @@
 			"class": ""
 		},
 		"coin_value": {
-            "name": "Valor de Token",
-			"class": "profitCell deficitCell"
+			"name": "Valor de Token",
+			"class": "profitCell deficitCell tooltip"
 		},
         "int_rate": {
-            "name": "Intereses Anuales",
+			"name": "Intereses Anuales",
             "class": "percentageCell"
         },
 		"token_earn": {
@@ -48,6 +49,11 @@
 			"class": "dollarCell"
 		}
 	},
+
+	"coinsIgnoredColumns": [
+		"uuid"
+	],
+	
 	"coinsTableStyler": {
 		"symbol": {
 			"name": "Token",
